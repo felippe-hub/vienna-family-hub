@@ -3,11 +3,11 @@ import { ArrowUpRight } from "lucide-react";
 const posts = [
   {
     category: "Mental Load",
-    date: "12 Mar 2025",
+    date: "Mar 12, 2025",
     readTime: "5 min",
-    title: "A carga mental invisível das mães urbanas em Viena",
+    title: "The invisible mental load of urban moms in Vienna",
     excerpt:
-      "Por que escolher uma atividade extracurricular consome tanto da nossa energia — e como reduzir esse peso sem renunciar à qualidade.",
+      "Why choosing one after-school activity drains so much of our energy — and how to lift that weight without compromising on quality.",
     cover: (
       <svg viewBox="0 0 400 260" className="h-full w-full" aria-hidden="true">
         <rect width="400" height="260" fill="#2F3D4C" />
@@ -21,12 +21,12 @@ const posts = [
     ),
   },
   {
-    category: "Vida em Viena",
-    date: "28 Feb 2025",
+    category: "Vienna Life",
+    date: "Feb 28, 2025",
     readTime: "7 min",
-    title: "Como escolher uma creche que realmente combina com sua família",
+    title: "How to choose a Kindergarten that truly fits your family",
     excerpt:
-      "Um guia calmo, com perguntas que importam — para você decidir com clareza, não por exaustão.",
+      "A calm guide with the questions that actually matter — so you decide with clarity, not from exhaustion.",
     cover: (
       <svg viewBox="0 0 400 260" className="h-full w-full" aria-hidden="true">
         <rect width="400" height="260" fill="#F8F8F8" />
@@ -39,12 +39,12 @@ const posts = [
     ),
   },
   {
-    category: "Tempo & Energia",
-    date: "14 Feb 2025",
+    category: "Time & Energy",
+    date: "Feb 14, 2025",
     readTime: "4 min",
-    title: "Menos abas, mais presença: o método Kindex em 3 passos",
+    title: "Fewer tabs, more presence: the Kindex method in 3 steps",
     excerpt:
-      "Como a curadoria certa transforma horas de pesquisa em minutos de decisão — e devolve sua noite.",
+      "How the right curation turns hours of research into minutes of decision — and gives your evening back.",
     cover: (
       <svg viewBox="0 0 400 260" className="h-full w-full" aria-hidden="true">
         <defs>
@@ -71,14 +71,14 @@ export function Blog() {
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <div className="max-w-2xl">
             <p className="mb-4 text-xs font-medium uppercase tracking-[0.18em] text-coral">
-              Diário Kindex
+              Kindex Journal
             </p>
             <h2 className="text-3xl text-navy sm:text-4xl lg:text-5xl">
-              Leituras calmas para mentes ocupadas.
+              Calm reads for busy minds.
             </h2>
             <p className="mt-5 text-base leading-relaxed text-navy/70 sm:text-lg">
-              Reflexões e guias práticos para famílias em Viena — sem ruído, sem
-              urgência, no seu ritmo.
+              Reflections and practical guides for Vienna families — no noise,
+              no urgency, at your own pace.
             </p>
           </div>
 
@@ -86,10 +86,10 @@ export function Blog() {
             href="#"
             className="group inline-flex items-center gap-2 rounded-xl border border-border bg-card px-5 py-3 text-sm font-medium text-navy transition-all hover:-translate-y-0.5 hover:border-coral/40 hover:shadow-card"
           >
-            Ver todas as leituras
+            Read all articles
             <ArrowUpRight
               size={16}
-              className="transition-transform group-hover:rotate-45"
+              className="transition-transform duration-300 group-hover:rotate-45"
             />
           </a>
         </div>
@@ -98,7 +98,7 @@ export function Blog() {
           {posts.map((post) => (
             <article
               key={post.title}
-              className="group overflow-hidden rounded-2xl border border-border bg-card shadow-card transition-all hover:-translate-y-1 hover:shadow-soft"
+              className="group overflow-hidden rounded-2xl border border-border bg-card shadow-card transition-all duration-500 hover:-translate-y-1.5 hover:border-coral/30 hover:shadow-soft"
             >
               <a href="#" className="block">
                 <div className="relative aspect-[16/10] overflow-hidden">
@@ -114,7 +114,7 @@ export function Blog() {
                   <div className="flex items-center gap-2 text-xs text-navy/50">
                     <span>{post.date}</span>
                     <span className="h-1 w-1 rounded-full bg-navy/30" />
-                    <span>{post.readTime} de leitura</span>
+                    <span>{post.readTime} read</span>
                   </div>
                   <h3 className="mt-3 text-lg font-bold leading-snug text-navy transition-colors group-hover:text-coral">
                     {post.title}
@@ -124,10 +124,10 @@ export function Blog() {
                   </p>
 
                   <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-coral">
-                    Ler mais
+                    Read more
                     <ArrowUpRight
                       size={14}
-                      className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                      className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                     />
                   </span>
                 </div>
