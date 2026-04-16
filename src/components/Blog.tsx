@@ -1,4 +1,6 @@
 import { ArrowUpRight } from "lucide-react";
+import { Reveal } from "./Reveal";
+
 
 const posts = [
   {

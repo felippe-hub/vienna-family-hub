@@ -1,4 +1,4 @@
-const traits = [
+import { Reveal } from "./Reveal";
   "Busy schedules",
   "High mental load",
   "Too many apps",
