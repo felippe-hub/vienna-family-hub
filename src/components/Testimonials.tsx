@@ -1,4 +1,6 @@
 import { Reveal } from "./Reveal";
+
+const testimonials = [
   {
     quote:
       "Before Kindex I had 14 tabs open just to pick a weekend activity. Now I decide in minutes — and I finally play with my son instead of researching.",
