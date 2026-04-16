@@ -82,8 +82,8 @@
   --input: #ececec;
   --ring: #fe5c36;
 
-  /* Brand gradient */
-  --gradient-warm: linear-gradient(90deg, #fe5c36 0%, #f39420 50%, #f5c71a 100%);
+  /* Brand gradient — warm & cozy: soft coral → amber → honey */
+  --gradient-warm: linear-gradient(90deg, #f47558 0%, #f0964a 45%, #e8a957 100%);
   --shadow-card: 0 1px 2px rgba(47, 61, 76, 0.04), 0 8px 24px rgba(47, 61, 76, 0.04);
   --shadow-soft: 0 12px 40px rgba(47, 61, 76, 0.08);
 }
@@ -130,7 +130,7 @@
      Includes a fallback color so it never renders as invisible/blocky
      if `background-clip: text` fails to paint correctly. */
   .text-gradient-warm {
-    color: #fe5c36;
+    color: #f47558;
     background: var(--gradient-warm);
     -webkit-background-clip: text;
     background-clip: text;
@@ -138,6 +138,28 @@
     color: transparent;
     /* Avoid descender clipping on certain fonts */
     padding-bottom: 0.05em;
+  }
+
+  /* Slow gentle sweep for the compass needle */
+  @keyframes compass-sweep {
+    0%   { transform: rotate(0deg); }
+    50%  { transform: rotate(180deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .animate-compass-sweep {
+    animation: compass-sweep 22s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+    transform-origin: center;
+  }
+
+  /* Soft radar pulse rings expanding outward */
+  @keyframes radar-pulse {
+    0%   { transform: scale(0.4); opacity: 0.55; }
+    80%  { opacity: 0; }
+    100% { transform: scale(1); opacity: 0; }
+  }
+  .animate-radar-pulse {
+    transform-origin: center;
+    animation: radar-pulse 4.5s ease-out infinite;
   }
 
   /* Typewriter caret for the hero headline */
@@ -349,6 +371,8 @@
     .animate-pulse-glow,
     .animate-marquee-rotate,
     .animate-shimmer,
+    .animate-compass-sweep,
+    .animate-radar-pulse,
     .animate-bloom-left,
     .animate-bloom-center,
     .animate-bloom-right { animation: none !important; }
