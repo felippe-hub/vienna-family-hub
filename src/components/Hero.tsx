@@ -222,11 +222,23 @@ function TypedHeadline({ typed, done }: { typed: number; done: boolean }) {
 }
 
 /**
- * Right-side scene that assembles itself element by element using the
- * vocabulary already on the page: orbital ring, capsules in the brand
- * spectrum, floating nodes, hairline connectors.
+ * Right-side scene — a calm "family system".
+ *
+ * Visual story (uses the same vocabulary as the rest of the site):
+ *   - Two orbital rings (slow + counter-rotating) = the surrounding world.
+ *   - A central capsule outline (coral→orange) = home / Kindex itself.
+ *   - Four small capsule "figures" around it = the family members:
+ *        Parent A (coral, tall) · Parent B (orange, tall)
+ *        Child 1 (light-orange, small) · Child 2 (yellow, smaller)
+ *     They each gently float at their own rhythm — never frantic.
+ *   - Hairline connectors link each figure back to home, like soft bonds.
+ *   - The whole composition assembles itself element by element
+ *     (rings → home → parents → kids → connectors → ambient nodes).
  */
 function AssemblingScene() {
+  // Each "figure" is a vertical capsule outline. Coordinates are tuned so
+  // they sit on a gentle arc above the orbital rings, like a family photo
+  // arranged around a hearth.
   return (
     <div className="relative aspect-square w-full max-w-[520px] justify-self-center lg:justify-self-end">
       {/* Soft glow base */}
@@ -236,7 +248,7 @@ function AssemblingScene() {
         aria-hidden="true"
       />
 
-      {/* Outer slow tick ring */}
+      {/* Outer slow tick ring — the world around the family */}
       <svg
         viewBox="0 0 600 600"
         className="absolute inset-0 h-full w-full animate-rise-in"
@@ -276,7 +288,7 @@ function AssemblingScene() {
         </g>
       </svg>
 
-      {/* Inner counter-rotating yellow dashed ring */}
+      {/* Inner counter-rotating yellow dashed ring — the family's rhythm */}
       <svg
         viewBox="0 0 600 600"
         className="absolute inset-0 h-full w-full animate-rise-in"
@@ -287,7 +299,7 @@ function AssemblingScene() {
           <circle
             cx="300"
             cy="300"
-            r="195"
+            r="200"
             fill="none"
             stroke="#FEB449"
             strokeOpacity="0.32"
@@ -299,8 +311,8 @@ function AssemblingScene() {
             return (
               <circle
                 key={deg}
-                cx={300 + Math.cos(a) * 195}
-                cy={300 + Math.sin(a) * 195}
+                cx={300 + Math.cos(a) * 200}
+                cy={300 + Math.sin(a) * 200}
                 r="2.5"
                 fill="#F5C71A"
                 opacity="0.8"
@@ -310,128 +322,169 @@ function AssemblingScene() {
         </g>
       </svg>
 
-      {/* Three brand-spectrum capsules — assembled in sequence.
-          Each one fades up into its final fanned position. */}
+      {/* Family scene — gradients, home, figures, connectors */}
       <svg
         viewBox="0 0 600 600"
         className="absolute inset-0 h-full w-full"
         aria-hidden="true"
       >
         <defs>
-          <linearGradient id="hero-coral" x1="0" y1="0" x2="0" y2="1">
+          <linearGradient id="fam-coral" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="#FE5C36" />
             <stop offset="100%" stopColor="#FF7A4F" />
           </linearGradient>
-          <linearGradient id="hero-orange" x1="0" y1="0" x2="0" y2="1">
+          <linearGradient id="fam-orange" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="#F39420" />
             <stop offset="100%" stopColor="#FEB449" />
           </linearGradient>
-          <linearGradient id="hero-yellow" x1="0" y1="0" x2="0" y2="1">
+          <linearGradient id="fam-light" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="#FEB449" />
             <stop offset="100%" stopColor="#F5C71A" />
           </linearGradient>
+          <linearGradient id="fam-yellow" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#F5C71A" />
+            <stop offset="100%" stopColor="#FEB449" />
+          </linearGradient>
+          <linearGradient id="fam-home" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#FE5C36" />
+            <stop offset="100%" stopColor="#F39420" />
+          </linearGradient>
         </defs>
 
-        {/* Capsule — yellow, fanned right */}
+        {/* Hairline connectors from each family member back to home.
+            Drawn first so they sit behind the figures. Appear last in time. */}
         <g
           className="animate-rise-in"
-          style={
-            {
-              ["--rise-delay" as never]: "1100ms",
-              transformOrigin: "300px 420px",
-              transform: "rotate(40deg)",
-            } as never
-          }
+          stroke="#FEFEFE"
+          strokeOpacity="0.22"
+          strokeWidth="1"
+          strokeLinecap="round"
+          strokeDasharray="2 5"
+          fill="none"
+          style={{ ["--rise-delay" as never]: "1900ms" } as never}
         >
-          <rect
-            x="268"
-            y="190"
-            width="64"
-            height="230"
-            rx="32"
-            fill="none"
-            stroke="url(#hero-yellow)"
-            strokeWidth="10"
-          />
+          <line x1="180" y1="240" x2="290" y2="290" />
+          <line x1="420" y1="240" x2="310" y2="290" />
+          <line x1="200" y1="430" x2="290" y2="320" />
+          <line x1="400" y1="430" x2="310" y2="320" />
         </g>
 
-        {/* Capsule — orange, slight tilt */}
+        {/* HOME — central capsule (Kindex). Appears first inside the rings. */}
         <g
-          className="animate-rise-in"
-          style={
-            {
-              ["--rise-delay" as never]: "1300ms",
-              transformOrigin: "300px 420px",
-              transform: "rotate(8deg)",
-            } as never
-          }
-        >
-          <rect
-            x="268"
-            y="185"
-            width="64"
-            height="235"
-            rx="32"
-            fill="none"
-            stroke="url(#hero-orange)"
-            strokeWidth="10"
-          />
-        </g>
-
-        {/* Capsule — coral, fanned left */}
-        <g
-          className="animate-rise-in"
-          style={
-            {
-              ["--rise-delay" as never]: "1500ms",
-              transformOrigin: "300px 420px",
-              transform: "rotate(-36deg)",
-            } as never
-          }
-        >
-          <rect
-            x="268"
-            y="180"
-            width="64"
-            height="240"
-            rx="32"
-            fill="none"
-            stroke="url(#hero-coral)"
-            strokeWidth="10"
-          />
-        </g>
-
-        {/* Anchor dot */}
-        <circle
-          cx="300"
-          cy="420"
-          r="4"
-          fill="#FEFEFE"
-          opacity="0.6"
           className="animate-rise-in"
           style={{ ["--rise-delay" as never]: "900ms" } as never}
-        />
+        >
+          <rect
+            x="270"
+            y="240"
+            width="60"
+            height="130"
+            rx="30"
+            fill="none"
+            stroke="url(#fam-home)"
+            strokeWidth="9"
+          />
+          {/* tiny inner heart-dot — the warmth at the center */}
+          <circle cx="300" cy="305" r="4" fill="#FE5C36" />
+        </g>
+
+        {/* PARENT A — coral, top-left, gentle slow float */}
+        <g
+          className="animate-rise-in"
+          style={{ ["--rise-delay" as never]: "1200ms" } as never}
+        >
+          <g className="animate-float-slow" style={{ transformOrigin: "180px 220px" }}>
+            <rect
+              x="160"
+              y="170"
+              width="40"
+              height="100"
+              rx="20"
+              fill="none"
+              stroke="url(#fam-coral)"
+              strokeWidth="7"
+            />
+            {/* head dot */}
+            <circle cx="180" cy="150" r="11" fill="url(#fam-coral)" />
+          </g>
+        </g>
+
+        {/* PARENT B — orange, top-right, medium float */}
+        <g
+          className="animate-rise-in"
+          style={{ ["--rise-delay" as never]: "1350ms" } as never}
+        >
+          <g className="animate-float-medium" style={{ transformOrigin: "420px 220px" }}>
+            <rect
+              x="400"
+              y="170"
+              width="40"
+              height="100"
+              rx="20"
+              fill="none"
+              stroke="url(#fam-orange)"
+              strokeWidth="7"
+            />
+            <circle cx="420" cy="150" r="11" fill="url(#fam-orange)" />
+          </g>
+        </g>
+
+        {/* CHILD 1 — light-orange, bottom-left, faster float */}
+        <g
+          className="animate-rise-in"
+          style={{ ["--rise-delay" as never]: "1500ms" } as never}
+        >
+          <g className="animate-float-fast" style={{ transformOrigin: "200px 420px" }}>
+            <rect
+              x="184"
+              y="395"
+              width="32"
+              height="70"
+              rx="16"
+              fill="none"
+              stroke="url(#fam-light)"
+              strokeWidth="6"
+            />
+            <circle cx="200" cy="380" r="9" fill="url(#fam-light)" />
+          </g>
+        </g>
+
+        {/* CHILD 2 — yellow, bottom-right, slow float (smallest of all) */}
+        <g
+          className="animate-rise-in"
+          style={{ ["--rise-delay" as never]: "1650ms" } as never}
+        >
+          <g className="animate-float-slow" style={{ transformOrigin: "400px 425px" }}>
+            <rect
+              x="386"
+              y="405"
+              width="28"
+              height="60"
+              rx="14"
+              fill="none"
+              stroke="url(#fam-yellow)"
+              strokeWidth="6"
+            />
+            <circle cx="400" cy="392" r="8" fill="url(#fam-yellow)" />
+          </g>
+        </g>
       </svg>
 
-      {/* Floating constellation + connectors — appear last */}
+      {/* Ambient floating nodes + faint sparks — appear last */}
       <svg
         viewBox="0 0 600 600"
         className="absolute inset-0 h-full w-full animate-rise-in"
-        style={{ ["--rise-delay" as never]: "1800ms" }}
+        style={{ ["--rise-delay" as never]: "2000ms" }}
         aria-hidden="true"
       >
-        <circle cx="120" cy="180" r="5" fill="#FE5C36" opacity="0.85" className="animate-float-medium" />
-        <circle cx="490" cy="220" r="3.5" fill="#F5C71A" className="animate-float-fast" />
-        <circle cx="460" cy="430" r="6" fill="#FEB449" opacity="0.85" className="animate-float-slow" />
-        <circle cx="100" cy="430" r="4" fill="#FEFEFE" opacity="0.5" className="animate-float-medium" />
-        <circle cx="300" cy="120" r="2.5" fill="#FEFEFE" opacity="0.6" />
-
-        <g stroke="#FEFEFE" strokeOpacity="0.14" strokeWidth="1" strokeLinecap="round">
-          <line x1="120" y1="180" x2="240" y2="240" strokeDasharray="2 5" />
-          <line x1="490" y1="220" x2="380" y2="260" strokeDasharray="2 5" />
-          <line x1="460" y1="430" x2="360" y2="380" strokeDasharray="2 5" />
-        </g>
+        <circle cx="100" cy="320" r="3" fill="#F5C71A" className="animate-float-fast" />
+        <circle cx="500" cy="340" r="3.5" fill="#FEB449" className="animate-float-medium" />
+        <circle cx="290" cy="110" r="2.5" fill="#FEFEFE" opacity="0.6" />
+        <circle cx="300" cy="500" r="2.5" fill="#FEFEFE" opacity="0.45" />
+        <circle cx="120" cy="490" r="2" fill="#FE5C36" opacity="0.7" />
+        <circle cx="480" cy="490" r="2" fill="#F5C71A" opacity="0.7" />
       </svg>
     </div>
   );
 }
+
