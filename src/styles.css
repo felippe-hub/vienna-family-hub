@@ -296,6 +296,12 @@
     .animate-orbit,
     .animate-pulse-glow,
     .animate-marquee-rotate,
-    .animate-shimmer { animation: none !important; }
+    .animate-shimmer,
+    .animate-bloom-left,
+    .animate-bloom-center,
+    .animate-bloom-right { animation: none !important; }
+    .animate-bloom-left { transform: rotate(-40deg); }
+    .animate-bloom-center { transform: rotate(8deg); }
+    .animate-bloom-right { transform: rotate(45deg); }
   }
 }
