@@ -371,6 +371,8 @@
     .animate-pulse-glow,
     .animate-marquee-rotate,
     .animate-shimmer,
+    .animate-compass-sweep,
+    .animate-radar-pulse,
     .animate-bloom-left,
     .animate-bloom-center,
     .animate-bloom-right { animation: none !important; }
