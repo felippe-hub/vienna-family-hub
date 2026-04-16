@@ -45,7 +45,7 @@ export function Testimonials() {
       <div className="pointer-events-none absolute -bottom-32 right-1/4 h-96 w-96 rounded-full bg-yellow/30 blur-[120px] animate-pulse-glow" aria-hidden="true" />
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="mx-auto max-w-2xl text-center">
+        <Reveal className="mx-auto max-w-2xl text-center">
           <p className="mb-4 text-xs font-medium uppercase tracking-[0.18em] text-white/85">
             Vienna Families
           </p>
@@ -56,42 +56,40 @@ export function Testimonials() {
             "Kindex is not another app to check. It's the clarity you've been
             looking for."
           </p>
-        </div>
+        </Reveal>
 
         <div className="mt-16 grid gap-6 md:grid-cols-3">
           {testimonials.map((t, i) => (
-            <article
-              key={t.name}
-              className="group relative flex flex-col rounded-2xl border border-white/20 bg-white/10 p-7 shadow-soft backdrop-blur-md transition-all duration-500 hover:-translate-y-1.5 hover:bg-white/15"
-              style={{ animationDelay: `${i * 120}ms` }}
-            >
-              <svg
-                className="mb-4 h-8 w-8 text-white/70 transition-transform duration-500 group-hover:scale-110"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path d="M7.17 6A5.17 5.17 0 0 0 2 11.17V18h6.83v-6.83H5.5a1.67 1.67 0 0 1 1.67-1.67V6zm10 0a5.17 5.17 0 0 0-5.17 5.17V18h6.83v-6.83H15.5a1.67 1.67 0 0 1 1.67-1.67V6z" />
-              </svg>
-
-              <p className="flex-1 text-[15px] leading-relaxed text-white">
-                {t.quote}
-              </p>
-
-              <div className="mt-6 flex items-center gap-3 border-t border-white/15 pt-5">
-                <div
-                  className={`flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br ${t.accent} text-sm font-bold text-white shadow-card ring-2 ring-white/30`}
+            <Reveal key={t.name} delay={i * 140} as="article">
+              <div className="group relative flex h-full flex-col rounded-2xl border border-white/20 bg-white/10 p-7 shadow-soft backdrop-blur-md transition-all duration-500 hover:-translate-y-1.5 hover:bg-white/15">
+                <svg
+                  className="mb-4 h-8 w-8 text-white/70 transition-transform duration-500 group-hover:scale-110"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
                 >
-                  {t.initials}
-                </div>
-                <div>
-                  <p className="text-sm font-semibold leading-tight text-white">
-                    {t.name}
-                  </p>
-                  <p className="text-xs text-white/75">{t.role}</p>
+                  <path d="M7.17 6A5.17 5.17 0 0 0 2 11.17V18h6.83v-6.83H5.5a1.67 1.67 0 0 1 1.67-1.67V6zm10 0a5.17 5.17 0 0 0-5.17 5.17V18h6.83v-6.83H15.5a1.67 1.67 0 0 1 1.67-1.67V6z" />
+                </svg>
+
+                <p className="flex-1 text-[15px] leading-relaxed text-white">
+                  {t.quote}
+                </p>
+
+                <div className="mt-6 flex items-center gap-3 border-t border-white/15 pt-5">
+                  <div
+                    className={`flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br ${t.accent} text-sm font-bold text-white shadow-card ring-2 ring-white/30`}
+                  >
+                    {t.initials}
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold leading-tight text-white">
+                      {t.name}
+                    </p>
+                    <p className="text-xs text-white/75">{t.role}</p>
+                  </div>
                 </div>
               </div>
-            </article>
+            </Reveal>
           ))}
         </div>
       </div>
