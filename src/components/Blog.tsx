@@ -70,7 +70,7 @@ export function Blog() {
   return (
     <section id="blog" className="bg-background py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+        <Reveal className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <div className="max-w-2xl">
             <p className="mb-4 text-xs font-medium uppercase tracking-[0.18em] text-coral">
               Kindex Journal
@@ -86,7 +86,7 @@ export function Blog() {
 
           <a
             href="#"
-            className="group inline-flex items-center gap-2 rounded-xl border border-border bg-card px-5 py-3 text-sm font-medium text-navy transition-all hover:-translate-y-0.5 hover:border-coral/40 hover:shadow-card"
+            className="group inline-flex items-center gap-2 rounded-xl border border-border bg-card px-5 py-3 text-sm font-medium text-navy transition-all duration-300 hover:-translate-y-0.5 hover:border-coral/40 hover:shadow-card"
           >
             Read all articles
             <ArrowUpRight
@@ -94,15 +94,15 @@ export function Blog() {
               className="transition-transform duration-300 group-hover:rotate-45"
             />
           </a>
-        </div>
+        </Reveal>
 
         <div className="mt-14 grid gap-7 md:grid-cols-3">
-          {posts.map((post) => (
-            <article
-              key={post.title}
-              className="group overflow-hidden rounded-2xl border border-border bg-card shadow-card transition-all duration-500 hover:-translate-y-1.5 hover:border-coral/30 hover:shadow-soft"
-            >
-              <a href="#" className="block">
+          {posts.map((post, i) => (
+            <Reveal key={post.title} delay={i * 140} as="article">
+              <a
+                href="#"
+                className="group block h-full overflow-hidden rounded-2xl border border-border bg-card shadow-card transition-all duration-500 hover:-translate-y-1.5 hover:border-coral/30 hover:shadow-soft"
+              >
                 <div className="relative aspect-[16/10] overflow-hidden">
                   <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-105">
                     {post.cover}
@@ -134,7 +134,7 @@ export function Blog() {
                   </span>
                 </div>
               </a>
-            </article>
+            </Reveal>
           ))}
         </div>
       </div>
