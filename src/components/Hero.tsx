@@ -3,7 +3,29 @@ import { HeroIllustration } from "./HeroIllustration";
 export function Hero() {
   return (
     <section className="relative overflow-hidden bg-navy text-white">
-      <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 lg:grid-cols-2 lg:gap-16 lg:px-10 lg:py-28">
+      {/* Ambient background grid */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.07]"
+        style={{
+          backgroundImage:
+            "linear-gradient(#FEFEFE 1px, transparent 1px), linear-gradient(90deg, #FEFEFE 1px, transparent 1px)",
+          backgroundSize: "48px 48px",
+          maskImage:
+            "radial-gradient(ellipse at center, black 30%, transparent 75%)",
+        }}
+        aria-hidden="true"
+      />
+      {/* Soft coral aura */}
+      <div
+        className="pointer-events-none absolute -right-24 top-1/2 h-[520px] w-[520px] -translate-y-1/2 rounded-full bg-coral/20 blur-[120px]"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute -left-32 bottom-0 h-[400px] w-[400px] rounded-full bg-yellow/10 blur-[120px]"
+        aria-hidden="true"
+      />
+
+      <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 lg:grid-cols-2 lg:gap-16 lg:px-10 lg:py-28">
         <div className="animate-fade-in-up">
           <p className="mb-5 text-xs font-medium uppercase tracking-[0.18em] text-coral">
             For Vienna families
@@ -35,9 +57,7 @@ export function Hero() {
         </div>
 
         <div className="flex justify-center lg:justify-end">
-          <div className="animate-float-slow">
-            <HeroIllustration />
-          </div>
+          <HeroIllustration />
         </div>
       </div>
     </section>
