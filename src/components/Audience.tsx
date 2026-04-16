@@ -1,4 +1,6 @@
 import { Reveal } from "./Reveal";
+
+const traits = [
   "Busy schedules",
   "High mental load",
   "Too many apps",
