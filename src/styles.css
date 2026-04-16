@@ -130,7 +130,7 @@
      Includes a fallback color so it never renders as invisible/blocky
      if `background-clip: text` fails to paint correctly. */
   .text-gradient-warm {
-    color: #fe5c36;
+    color: #f47558;
     background: var(--gradient-warm);
     -webkit-background-clip: text;
     background-clip: text;
@@ -138,6 +138,28 @@
     color: transparent;
     /* Avoid descender clipping on certain fonts */
     padding-bottom: 0.05em;
+  }
+
+  /* Slow gentle sweep for the compass needle */
+  @keyframes compass-sweep {
+    0%   { transform: rotate(0deg); }
+    50%  { transform: rotate(180deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .animate-compass-sweep {
+    animation: compass-sweep 22s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+    transform-origin: center;
+  }
+
+  /* Soft radar pulse rings expanding outward */
+  @keyframes radar-pulse {
+    0%   { transform: scale(0.4); opacity: 0.55; }
+    80%  { opacity: 0; }
+    100% { transform: scale(1); opacity: 0; }
+  }
+  .animate-radar-pulse {
+    transform-origin: center;
+    animation: radar-pulse 4.5s ease-out infinite;
   }
 
   /* Typewriter caret for the hero headline */
