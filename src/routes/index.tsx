@@ -3,8 +3,9 @@ import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { Problem } from "@/components/Problem";
 import { Solution } from "@/components/Solution";
-import { Manifesto } from "@/components/Manifesto";
+import { Testimonials } from "@/components/Testimonials";
 import { Audience } from "@/components/Audience";
+import { Blog } from "@/components/Blog";
 import { Waitlist } from "@/components/Waitlist";
 import { Footer } from "@/components/Footer";
 
@@ -36,8 +37,9 @@ function Index() {
       <Hero />
       <Problem />
       <Solution />
-      <Manifesto />
+      <Testimonials />
       <Audience />
+      <Blog />
       <Waitlist />
       <Footer />
     </main>
