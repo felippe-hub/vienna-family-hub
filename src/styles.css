@@ -219,6 +219,58 @@
   }
   .animate-pulse-glow { animation: pulse-glow 4s ease-in-out infinite; }
 
+  /* Bloom petals — each capsule starts folded (rotation 0°) at the shared
+     anchor (300, 420) and fans open to its final angle, then sways gently.
+     Together they form the Kindex mark blooming like a flower. */
+  @keyframes bloom-left {
+    0%   { transform: rotate(0deg); }
+    55%  { transform: rotate(-44deg); }
+    70%  { transform: rotate(-38deg); }
+    100% { transform: rotate(-40deg); }
+  }
+  @keyframes bloom-center {
+    0%   { transform: rotate(0deg); }
+    55%  { transform: rotate(10deg); }
+    70%  { transform: rotate(6deg); }
+    100% { transform: rotate(8deg); }
+  }
+  @keyframes bloom-right {
+    0%   { transform: rotate(0deg); }
+    55%  { transform: rotate(48deg); }
+    70%  { transform: rotate(42deg); }
+    100% { transform: rotate(45deg); }
+  }
+  @keyframes sway-left {
+    0%, 100% { transform: rotate(-40deg); }
+    50%      { transform: rotate(-37deg); }
+  }
+  @keyframes sway-center {
+    0%, 100% { transform: rotate(8deg); }
+    50%      { transform: rotate(10deg); }
+  }
+  @keyframes sway-right {
+    0%, 100% { transform: rotate(45deg); }
+    50%      { transform: rotate(42deg); }
+  }
+  .animate-bloom-left {
+    transform-origin: 300px 420px;
+    animation:
+      bloom-left 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both,
+      sway-left 6s ease-in-out 2s infinite;
+  }
+  .animate-bloom-center {
+    transform-origin: 300px 420px;
+    animation:
+      bloom-center 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both,
+      sway-center 7s ease-in-out 2.2s infinite;
+  }
+  .animate-bloom-right {
+    transform-origin: 300px 420px;
+    animation:
+      bloom-right 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0.45s both,
+      sway-right 8s ease-in-out 2.4s infinite;
+  }
+
   @keyframes marquee-rotate {
     from { transform: rotate(0deg); }
     to { transform: rotate(-360deg); }
