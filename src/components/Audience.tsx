@@ -1,3 +1,5 @@
+import { Reveal } from "./Reveal";
+
 const traits = [
   "Busy schedules",
   "High mental load",
@@ -9,7 +11,7 @@ export function Audience() {
   return (
     <section id="for-families" className="bg-background py-24 lg:py-32">
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-2 lg:gap-20 lg:px-10">
-        <div>
+        <Reveal>
           <p className="mb-4 text-xs font-medium uppercase tracking-[0.18em] text-coral">
             Who it's for
           </p>
@@ -22,21 +24,22 @@ export function Audience() {
           </p>
 
           <ul className="mt-10 grid grid-cols-2 gap-3">
-            {traits.map((trait) => (
+            {traits.map((trait, i) => (
               <li
                 key={trait}
-                className="flex items-center gap-3 rounded-xl border border-border bg-card px-4 py-3.5 text-sm text-navy transition-all hover:-translate-y-0.5 hover:border-coral/40 hover:shadow-card"
+                className="flex items-center gap-3 rounded-xl border border-border bg-card px-4 py-3.5 text-sm text-navy transition-all duration-300 hover:-translate-y-0.5 hover:border-coral/40 hover:shadow-card"
+                style={{ animationDelay: `${i * 80}ms` }}
               >
                 <span className="h-2 w-2 rounded-full bg-coral" />
                 {trait}
               </li>
             ))}
           </ul>
-        </div>
+        </Reveal>
 
-        <div className="flex justify-center">
+        <Reveal delay={200} className="flex justify-center">
           <AudienceIllustration />
-        </div>
+        </Reveal>
       </div>
     </section>
   );

@@ -1,4 +1,5 @@
 import { Brain, Clock, Puzzle } from "lucide-react";
+import { Reveal } from "./Reveal";
 
 const problems = [
   {
@@ -22,27 +23,26 @@ export function Problem() {
   return (
     <section className="bg-background py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="mx-auto max-w-2xl text-center">
+        <Reveal className="mx-auto max-w-2xl text-center">
           <p className="mb-4 text-xs font-medium uppercase tracking-[0.18em] text-coral">
             The Problem
           </p>
           <h2 className="text-3xl text-navy sm:text-4xl lg:text-5xl">
             Too many options. Not enough clarity.
           </h2>
-        </div>
+        </Reveal>
 
         <div className="mt-16 grid gap-6 md:grid-cols-3">
-          {problems.map(({ icon: Icon, title, text }) => (
-            <div
-              key={title}
-              className="group rounded-2xl border border-border bg-card p-8 shadow-card transition-all hover:-translate-y-1 hover:shadow-soft"
-            >
-              <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-coral/10 text-coral transition-colors group-hover:bg-coral group-hover:text-white">
-                <Icon size={24} strokeWidth={1.75} />
+          {problems.map(({ icon: Icon, title, text }, i) => (
+            <Reveal key={title} delay={i * 120}>
+              <div className="group h-full rounded-2xl border border-border bg-card p-8 shadow-card transition-all duration-500 hover:-translate-y-1.5 hover:border-coral/30 hover:shadow-soft">
+                <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-coral/10 text-coral transition-all duration-500 group-hover:scale-110 group-hover:bg-coral group-hover:text-white">
+                  <Icon size={24} strokeWidth={1.75} />
+                </div>
+                <h3 className="text-xl text-navy">{title}</h3>
+                <p className="mt-3 text-[15px] leading-relaxed text-navy/65">{text}</p>
               </div>
-              <h3 className="text-xl text-navy">{title}</h3>
-              <p className="mt-3 text-[15px] leading-relaxed text-navy/65">{text}</p>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>
