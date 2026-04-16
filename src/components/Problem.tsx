@@ -28,7 +28,8 @@ export function Problem() {
             The Problem
           </p>
           <h2 className="text-3xl text-navy sm:text-4xl lg:text-5xl">
-            Too many options. Not enough clarity.
+            Too many <span className="text-gradient-warm">options</span>. Not
+            enough <span className="text-gradient-warm">clarity</span>.
           </h2>
         </Reveal>
 

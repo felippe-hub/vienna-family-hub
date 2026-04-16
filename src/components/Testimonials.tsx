@@ -58,7 +58,8 @@ export function Testimonials() {
             Vienna Families
           </p>
           <h2 className="text-3xl text-navy sm:text-4xl lg:text-5xl">
-            Moms who got their time back.
+            Moms who got their{" "}
+            <span className="text-gradient-warm">time back</span>.
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-base text-navy/65 sm:text-lg">
             "Kindex is not another app to check. It's the clarity you've been

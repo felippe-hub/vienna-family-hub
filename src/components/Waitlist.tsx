@@ -15,7 +15,8 @@ export function Waitlist() {
     <section id="waitlist" className="bg-navy py-24 text-white lg:py-32">
       <div className="mx-auto max-w-3xl px-6 text-center lg:px-10">
         <h2 className="text-3xl sm:text-4xl lg:text-5xl">
-          Be the first to try Kindex.
+          Be the <span className="text-gradient-warm">first</span> to try
+          Kindex.
         </h2>
         <p className="mx-auto mt-5 max-w-xl text-base text-white/70 sm:text-lg">
           We're launching in Vienna soon. Get early access and help shape the

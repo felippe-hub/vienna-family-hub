@@ -16,7 +16,8 @@ export function Audience() {
             Who it's for
           </p>
           <h2 className="text-3xl text-navy sm:text-4xl lg:text-5xl">
-            Made for families in Vienna
+            Made for <span className="text-gradient-warm">families</span> in
+            Vienna
           </h2>
           <p className="mt-5 max-w-lg text-base leading-relaxed text-navy/70 sm:text-lg">
             Urban parents with children 0–12 years old who are done wasting time
