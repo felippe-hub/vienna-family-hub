@@ -31,7 +31,8 @@ export function Solution() {
             How Kindex helps
           </p>
           <h2 className="text-3xl text-navy sm:text-4xl lg:text-5xl">
-            One place for your family's life in Vienna.
+            One place for your family's{" "}
+            <span className="text-gradient-warm">life in Vienna</span>.
           </h2>
         </div>
 

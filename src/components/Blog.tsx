@@ -76,7 +76,8 @@ export function Blog() {
               Kindex Journal
             </p>
             <h2 className="text-3xl text-navy sm:text-4xl lg:text-5xl">
-              Calm reads for busy minds.
+              <span className="text-gradient-warm">Calm reads</span> for busy
+              minds.
             </h2>
             <p className="mt-5 text-base leading-relaxed text-navy/70 sm:text-lg">
               Reflections and practical guides for Vienna families — no noise,
