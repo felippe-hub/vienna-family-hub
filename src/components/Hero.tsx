@@ -1,14 +1,13 @@
+import { useEffect, useState } from "react";
+
 /**
  * Hero — minimal, editorial.
  *
  * Concept: a quiet headline paired with a single, focused visual element —
- * a compass / radar disc. The compass is intentionally similar in language
- * to the rest of the site (concentric rings, ticks, soft brand dots) but
- * adds gentle, slow movement: the needle sweeps, a soft sector glows, and
- * a single radar pulse expands outward at a calm cadence.
- *
- * Brand spectrum (cozy): soft coral → amber → honey. Key words use
- * `.text-gradient-warm` to stay consistent with the rest of the site.
+ * a simulated Google search. A parent types "activities for kids in vienna"
+ * into a search bar; suggestions and noisy results appear, then the whole
+ * panel fades to a single calm Kindex answer. It mirrors the headline:
+ * "Less Searching. More Living."
  */
 
 export function Hero() {
@@ -20,7 +19,7 @@ export function Hero() {
         aria-hidden="true"
       />
 
-      <div className="relative mx-auto grid max-w-6xl items-center gap-16 px-6 py-28 lg:grid-cols-[1.1fr_1fr] lg:gap-24 lg:px-10 lg:py-36">
+      <div className="relative mx-auto grid max-w-6xl items-center gap-16 px-6 py-28 lg:grid-cols-[1.05fr_1fr] lg:gap-20 lg:px-10 lg:py-36">
         {/* LEFT — headline + one CTA */}
         <div>
           <div className="mb-7 flex items-center gap-3">
@@ -55,8 +54,8 @@ export function Hero() {
           </div>
         </div>
 
-        {/* RIGHT — compass / radar */}
-        <Compass />
+        {/* RIGHT — simulated search */}
+        <SearchSimulation />
       </div>
 
       {/* Bottom hairline divider with a coral tick */}
@@ -72,146 +71,203 @@ export function Hero() {
 }
 
 /**
- * Compass — a calm, abstract direction-finder.
+ * SearchSimulation — a minimal mock of a Google-style search.
  *
- * Layered elements (back to front):
- *   1. Soft warm disc + radar pulse rings expanding outward
- *   2. Concentric guide rings + cardinal tick marks (N/E/S/W)
- *   3. Faint cross-hair guides
- *   4. Highlighted sector wedge (soft amber glow) — fixed, gives warmth
- *   5. Slowly sweeping needle (coral up / navy-tinted down)
- *   6. Three small brand dots placed on outer rings as "points of interest"
+ * Loop:
+ *  1. Typing "activities for kids in vienna" character by character.
+ *  2. Autocomplete suggestions fade in one by one.
+ *  3. Noisy result list appears (faint, overwhelming feeling).
+ *  4. Everything dims except a single, calm Kindex answer card.
+ *  5. After a pause, restart.
  */
-function Compass() {
+const QUERY = "activities for kids in vienna";
+const SUGGESTIONS = [
+  "activities for kids in vienna this weekend",
+  "activities for kids in vienna indoor",
+  "activities for kids in vienna under 5",
+  "activities for kids in vienna free",
+];
+const RESULTS = [
+  "12 Best Things to Do With Kids in Vienna — TripAdvisor",
+  "Vienna with kids: 25 unmissable activities | Time Out",
+  "Top 50 family activities in Vienna (2024 update)",
+  "Reddit: where do you take your toddler in Vienna?",
+];
+
+type Phase = "typing" | "suggesting" | "results" | "answer";
+
+function SearchSimulation() {
+  const [typed, setTyped] = useState(0);
+  const [phase, setPhase] = useState<Phase>("typing");
+
+  // Typing phase
+  useEffect(() => {
+    if (phase !== "typing") return;
+    if (typed >= QUERY.length) {
+      const t = window.setTimeout(() => setPhase("suggesting"), 600);
+      return () => window.clearTimeout(t);
+    }
+    const t = window.setTimeout(() => setTyped((n) => n + 1), 70);
+    return () => window.clearTimeout(t);
+  }, [typed, phase]);
+
+  // Phase progression
+  useEffect(() => {
+    if (phase === "suggesting") {
+      const t = window.setTimeout(() => setPhase("results"), 1800);
+      return () => window.clearTimeout(t);
+    }
+    if (phase === "results") {
+      const t = window.setTimeout(() => setPhase("answer"), 2400);
+      return () => window.clearTimeout(t);
+    }
+    if (phase === "answer") {
+      const t = window.setTimeout(() => {
+        setTyped(0);
+        setPhase("typing");
+      }, 4200);
+      return () => window.clearTimeout(t);
+    }
+  }, [phase]);
+
+  const showSuggestions = phase === "suggesting";
+  const showResults = phase === "results" || phase === "answer";
+  const showAnswer = phase === "answer";
+
   return (
-    <div className="relative aspect-square w-full max-w-[460px] justify-self-center lg:justify-self-end">
-      {/* Soft warm disc behind everything */}
+    <div className="relative w-full max-w-[520px] justify-self-center lg:justify-self-end">
+      {/* Soft warm halo behind the panel */}
       <div
-        className="absolute inset-[6%] rounded-full"
+        className="pointer-events-none absolute -inset-8 rounded-[2rem]"
         style={{
           background:
-            "radial-gradient(circle at 50% 50%, rgba(244,117,88,0.16) 0%, rgba(232,169,87,0.06) 55%, transparent 75%)",
+            "radial-gradient(circle at 50% 30%, rgba(244,117,88,0.18) 0%, rgba(232,169,87,0.06) 55%, transparent 75%)",
         }}
         aria-hidden="true"
       />
 
-      {/* Radar pulse rings — staggered for a calm, breathing rhythm */}
-      <div className="absolute inset-0" aria-hidden="true">
-        {[0, 1.5, 3].map((delay) => (
-          <span
-            key={delay}
-            className="animate-radar-pulse absolute inset-[12%] rounded-full border border-coral/35"
-            style={{ animationDelay: `${delay}s` }}
-          />
-        ))}
+      <div className="relative rounded-2xl border border-white/10 bg-white/[0.04] p-5 shadow-soft backdrop-blur-sm sm:p-6">
+        {/* Browser chrome */}
+        <div className="mb-4 flex items-center gap-1.5" aria-hidden="true">
+          <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+          <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+          <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+          <span className="ml-3 h-1 flex-1 rounded-full bg-white/5" />
+        </div>
+
+        {/* Search bar */}
+        <div className="relative flex items-center gap-3 rounded-full border border-white/15 bg-white/[0.06] px-5 py-3.5">
+          <SearchIcon />
+          <span className="font-sans text-sm text-white/85 sm:text-[15px]">
+            {QUERY.slice(0, typed)}
+            {phase === "typing" && <span className="caret-blink text-white/80" />}
+          </span>
+        </div>
+
+        {/* Autocomplete suggestions */}
+        <div
+          className={`mt-2 overflow-hidden rounded-xl border border-white/10 bg-white/[0.03] transition-all duration-500 ${
+            showSuggestions ? "max-h-64 opacity-100" : "max-h-0 opacity-0 border-transparent"
+          }`}
+          aria-hidden={!showSuggestions}
+        >
+          <ul className="divide-y divide-white/5">
+            {SUGGESTIONS.map((s, i) => (
+              <li
+                key={s}
+                className="flex items-center gap-3 px-5 py-2.5 text-[13px] text-white/65"
+                style={{
+                  opacity: showSuggestions ? 1 : 0,
+                  transform: showSuggestions ? "translateY(0)" : "translateY(-4px)",
+                  transition: `all 0.4s ease ${i * 110}ms`,
+                }}
+              >
+                <SearchIcon small />
+                <span className="truncate">{s}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Noisy results — fade and dim once the answer appears */}
+        <div
+          className={`mt-4 space-y-3 transition-all duration-700 ${
+            showResults ? "opacity-100" : "opacity-0"
+          } ${showAnswer ? "blur-[1.5px] opacity-30" : ""}`}
+          aria-hidden="true"
+        >
+          {RESULTS.map((r, i) => (
+            <div
+              key={r}
+              className="space-y-1.5"
+              style={{
+                opacity: showResults ? 1 : 0,
+                transform: showResults ? "translateY(0)" : "translateY(6px)",
+                transition: `all 0.5s ease ${i * 120}ms`,
+              }}
+            >
+              <div className="text-[11px] text-white/40">
+                {["tripadvisor.com", "timeout.com", "viennatips.at", "reddit.com"][i]}
+              </div>
+              <div className="text-[13px] font-medium text-white/80">{r}</div>
+              <div className="flex gap-1">
+                <span className="h-1 w-2/3 rounded-full bg-white/10" />
+              </div>
+              <div className="flex gap-1">
+                <span className="h-1 w-1/2 rounded-full bg-white/10" />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* The calm Kindex answer */}
+        <div
+          className={`pointer-events-none absolute inset-x-5 bottom-5 transition-all duration-700 sm:inset-x-6 ${
+            showAnswer ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
+          }`}
+          aria-hidden={!showAnswer}
+        >
+          <div
+            className="rounded-xl border border-white/15 bg-navy/95 p-4 shadow-soft"
+            style={{
+              boxShadow:
+                "0 10px 40px rgba(244,117,88,0.18), 0 0 0 1px rgba(244,117,88,0.25)",
+            }}
+          >
+            <div className="mb-2 flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-coral" aria-hidden="true" />
+              <span className="text-[10px] font-medium uppercase tracking-[0.18em] text-white/55">
+                Kindex
+              </span>
+            </div>
+            <p className="text-[13px] leading-relaxed text-white/85 sm:text-sm">
+              <span className="text-gradient-warm font-medium">3 picks</span>{" "}
+              your family will love this Saturday — picked for a 4-year-old in the 7th district.
+            </p>
+          </div>
+        </div>
       </div>
-
-      {/* Compass face */}
-      <svg
-        viewBox="0 0 600 600"
-        className="absolute inset-0 h-full w-full"
-        aria-hidden="true"
-      >
-        <defs>
-          <linearGradient id="needle-up" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#f47558" />
-            <stop offset="100%" stopColor="#f0964a" />
-          </linearGradient>
-          <linearGradient id="needle-down" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#3a4a5c" />
-            <stop offset="100%" stopColor="#2f3d4c" />
-          </linearGradient>
-          <radialGradient id="sector-glow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#e8a957" stopOpacity="0.35" />
-            <stop offset="100%" stopColor="#e8a957" stopOpacity="0" />
-          </radialGradient>
-        </defs>
-
-        {/* Highlighted soft sector wedge (bottom-right) — adds warmth */}
-        <path
-          d="M 300 300 L 510 300 A 210 210 0 0 1 410 481 Z"
-          fill="url(#sector-glow)"
-          opacity="0.9"
-        />
-
-        {/* Concentric guide rings */}
-        {[210, 170, 130, 90, 50].map((r) => (
-          <circle
-            key={r}
-            cx="300"
-            cy="300"
-            r={r}
-            fill="none"
-            stroke="#FEFEFE"
-            strokeOpacity="0.12"
-            strokeWidth="1"
-          />
-        ))}
-
-        {/* Faint cross-hair */}
-        <line x1="80" y1="300" x2="520" y2="300" stroke="#FEFEFE" strokeOpacity="0.1" strokeDasharray="2 6" />
-        <line x1="300" y1="80" x2="300" y2="520" stroke="#FEFEFE" strokeOpacity="0.1" strokeDasharray="2 6" />
-
-        {/* Cardinal ticks */}
-        {[0, 90, 180, 270].map((deg) => {
-          const a = (deg * Math.PI) / 180;
-          const x1 = 300 + Math.cos(a) * 218;
-          const y1 = 300 + Math.sin(a) * 218;
-          const x2 = 300 + Math.cos(a) * 232;
-          const y2 = 300 + Math.sin(a) * 232;
-          return (
-            <line
-              key={deg}
-              x1={x1}
-              y1={y1}
-              x2={x2}
-              y2={y2}
-              stroke="#FEFEFE"
-              strokeOpacity="0.55"
-              strokeWidth="1.5"
-            />
-          );
-        })}
-
-        {/* Minor ticks */}
-        {Array.from({ length: 24 }).map((_, i) => {
-          if (i % 6 === 0) return null;
-          const a = (i / 24) * Math.PI * 2;
-          const x1 = 300 + Math.cos(a) * 220;
-          const y1 = 300 + Math.sin(a) * 220;
-          const x2 = 300 + Math.cos(a) * 228;
-          const y2 = 300 + Math.sin(a) * 228;
-          return (
-            <line
-              key={i}
-              x1={x1}
-              y1={y1}
-              x2={x2}
-              y2={y2}
-              stroke="#FEFEFE"
-              strokeOpacity="0.18"
-              strokeWidth="1"
-            />
-          );
-        })}
-
-        {/* Sweeping needle */}
-        <g className="animate-compass-sweep" style={{ transformOrigin: "300px 300px" }}>
-          {/* Up half — warm coral */}
-          <polygon points="300,120 290,300 310,300" fill="url(#needle-up)" />
-          {/* Down half — navy */}
-          <polygon points="300,480 290,300 310,300" fill="url(#needle-down)" />
-        </g>
-
-        {/* Center hub */}
-        <circle cx="300" cy="300" r="11" fill="#FEFEFE" />
-        <circle cx="300" cy="300" r="5" fill="#2f3d4c" />
-
-        {/* Brand "points of interest" dots on outer rings */}
-        <circle cx="138" cy="222" r="4.5" fill="#f0964a" />
-        <circle cx="450" cy="190" r="4" fill="#f47558" />
-        <circle cx="490" cy="430" r="4.5" fill="#e8a957" />
-      </svg>
     </div>
+  );
+}
+
+function SearchIcon({ small = false }: { small?: boolean }) {
+  const size = small ? 13 : 16;
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="text-white/45"
+      aria-hidden="true"
+    >
+      <circle cx="11" cy="11" r="7" />
+      <line x1="21" y1="21" x2="16.5" y2="16.5" />
+    </svg>
   );
 }
