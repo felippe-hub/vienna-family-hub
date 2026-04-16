@@ -1,4 +1,5 @@
 import { Sparkles, Compass, HeartHandshake } from "lucide-react";
+import { Reveal } from "./Reveal";
 
 const features = [
   {
