@@ -13,11 +13,27 @@ import { useEffect, useState } from "react";
 export function Hero() {
   return (
     <section className="relative overflow-hidden bg-navy text-white">
-      {/* Single ambient warm aura — kept subtle */}
+      {/* Ambient warm aura — kept subtle */}
       <div
         className="pointer-events-none absolute -right-40 top-1/2 h-[520px] w-[520px] -translate-y-1/2 rounded-full bg-coral/15 blur-[160px]"
         aria-hidden="true"
       />
+      {/* Faint grid scaffold — same vocabulary as HeroIllustration */}
+      <svg
+        viewBox="0 0 1200 800"
+        preserveAspectRatio="none"
+        className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.55]"
+        aria-hidden="true"
+      >
+        <g stroke="#FEFEFE" strokeOpacity="0.04" strokeWidth="1">
+          {Array.from({ length: 12 }).map((_, i) => (
+            <line key={`h${i}`} x1="0" y1={i * 70} x2="1200" y2={i * 70} />
+          ))}
+          {Array.from({ length: 18 }).map((_, i) => (
+            <line key={`v${i}`} x1={i * 70} y1="0" x2={i * 70} y2="800" />
+          ))}
+        </g>
+      </svg>
 
       <div className="relative mx-auto grid max-w-6xl items-center gap-16 px-6 py-28 lg:grid-cols-[1.05fr_1fr] lg:gap-20 lg:px-10 lg:py-36">
         {/* LEFT — headline + one CTA */}
