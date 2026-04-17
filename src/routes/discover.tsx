@@ -26,6 +26,8 @@ const searchSchema = z.object({
   sort: fallback(z.enum(["newest", "az"]), "newest").default("newest"),
 });
 
+type DiscoverSearch = z.infer<typeof searchSchema>;
+
 export const Route = createFileRoute("/discover")({
   validateSearch: zodValidator(searchSchema),
   component: DiscoverPage,
@@ -125,7 +127,7 @@ function DiscoverContent() {
             className="relative flex-1"
             onSubmit={(e) => {
               e.preventDefault();
-              navigate({ search: (prev) => ({ ...prev, q: query }) });
+              navigate({ search: (prev: DiscoverSearch) => ({ ...prev, q: query }) });
             }}
           >
             <Search
@@ -144,7 +146,7 @@ function DiscoverContent() {
             value={search.sort}
             onChange={(e) =>
               navigate({
-                search: (prev) => ({
+                search: (prev: DiscoverSearch) => ({
                   ...prev,
                   sort: e.target.value as "newest" | "az",
                 }),
@@ -202,7 +204,7 @@ function FiltersPanel() {
             key={k}
             type="button"
             onClick={() =>
-              navigate({ search: (prev) => ({ ...prev, kind: k }) })
+              navigate({ search: (prev: DiscoverSearch) => ({ ...prev, kind: k }) })
             }
             className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-all ${
               search.kind === k
@@ -227,7 +229,7 @@ function FiltersPanel() {
               type="button"
               onClick={() =>
                 navigate({
-                  search: (prev) => ({
+                  search: (prev: DiscoverSearch) => ({
                     ...prev,
                     filter: active ? undefined : f,
                   }),
@@ -251,7 +253,7 @@ function FiltersPanel() {
       <select
         value={search.cat}
         onChange={(e) =>
-          navigate({ search: (prev) => ({ ...prev, cat: e.target.value }) })
+          navigate({ search: (prev: DiscoverSearch) => ({ ...prev, cat: e.target.value }) })
         }
         className="mt-2 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-navy focus:border-coral focus:outline-none"
       >
