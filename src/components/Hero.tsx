@@ -151,7 +151,89 @@ function SearchSimulation() {
   const showAnswer = phase === "answer";
 
   return (
-    <div className="relative w-full max-w-[520px] justify-self-center lg:justify-self-end">
+    <div className="relative w-full max-w-[560px] justify-self-center lg:justify-self-end">
+      {/* Orbital scaffold — slow-rotating ticks, mirroring HeroIllustration */}
+      <svg
+        viewBox="0 0 600 600"
+        className="pointer-events-none absolute inset-[-12%] h-[124%] w-[124%] animate-spin-slow"
+        aria-hidden="true"
+      >
+        <circle
+          cx="300"
+          cy="300"
+          r="278"
+          fill="none"
+          stroke="#FEFEFE"
+          strokeOpacity="0.12"
+          strokeWidth="1"
+          strokeDasharray="2 12"
+        />
+        {Array.from({ length: 24 }).map((_, i) => {
+          const angle = (i / 24) * Math.PI * 2;
+          const x1 = 300 + Math.cos(angle) * 256;
+          const y1 = 300 + Math.sin(angle) * 256;
+          const x2 = 300 + Math.cos(angle) * (i % 6 === 0 ? 240 : 250);
+          const y2 = 300 + Math.sin(angle) * (i % 6 === 0 ? 240 : 250);
+          return (
+            <line
+              key={i}
+              x1={x1}
+              y1={y1}
+              x2={x2}
+              y2={y2}
+              stroke="#FEFEFE"
+              strokeOpacity={i % 6 === 0 ? "0.38" : "0.14"}
+              strokeWidth="1"
+            />
+          );
+        })}
+      </svg>
+
+      {/* Counter-rotating dashed inner ring with brand nodes */}
+      <svg
+        viewBox="0 0 600 600"
+        className="pointer-events-none absolute inset-[-6%] h-[112%] w-[112%] animate-spin-reverse"
+        aria-hidden="true"
+      >
+        <circle
+          cx="300"
+          cy="300"
+          r="220"
+          fill="none"
+          stroke="#FEB449"
+          strokeOpacity="0.22"
+          strokeWidth="1"
+          strokeDasharray="1 7"
+        />
+        {[0, 72, 144, 216, 288].map((deg) => {
+          const a = (deg * Math.PI) / 180;
+          return (
+            <circle
+              key={deg}
+              cx={300 + Math.cos(a) * 220}
+              cy={300 + Math.sin(a) * 220}
+              r="2.5"
+              fill="#F5C71A"
+              opacity="0.7"
+            />
+          );
+        })}
+      </svg>
+
+      {/* Floating satellite nodes + hairline connectors */}
+      <div className="pointer-events-none absolute -left-6 top-10 z-10" aria-hidden="true">
+        <span className="block h-2.5 w-2.5 rounded-full bg-coral animate-float-medium" />
+      </div>
+      <div className="pointer-events-none absolute -right-4 top-1/3 z-10" aria-hidden="true">
+        <span className="block h-1.5 w-1.5 rounded-full bg-yellow animate-float-fast" />
+      </div>
+      <div className="pointer-events-none absolute -right-8 bottom-12 z-10" aria-hidden="true">
+        <span className="block h-3 w-3 rounded-full bg-light-orange/85 animate-float-slow" />
+      </div>
+      <div className="pointer-events-none absolute -left-3 bottom-6 z-10" aria-hidden="true">
+        <span className="block h-1.5 w-1.5 rounded-full bg-white/50 animate-float-medium" />
+      </div>
+
       {/* Soft warm halo behind the panel */}
       <div
         className="pointer-events-none absolute -inset-8 rounded-[2rem]"
@@ -165,9 +247,9 @@ function SearchSimulation() {
       <div className="relative rounded-2xl border border-white/10 bg-white/[0.04] p-5 shadow-soft backdrop-blur-sm sm:p-6">
         {/* Browser chrome */}
         <div className="mb-4 flex items-center gap-1.5" aria-hidden="true">
-          <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-          <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-          <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+          <span className="h-2.5 w-2.5 rounded-full bg-coral/60" />
+          <span className="h-2.5 w-2.5 rounded-full bg-light-orange/60" />
+          <span className="h-2.5 w-2.5 rounded-full bg-yellow/60" />
           <span className="ml-3 h-1 flex-1 rounded-full bg-white/5" />
         </div>
 
@@ -236,7 +318,7 @@ function SearchSimulation() {
           ))}
         </div>
 
-        {/* The calm Kindex answer */}
+        {/* The calm Kindex answer — uses the brand mark capsules as a tiny avatar */}
         <div
           className={`pointer-events-none absolute inset-x-5 bottom-5 transition-all duration-700 sm:inset-x-6 ${
             showAnswer ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
@@ -244,14 +326,25 @@ function SearchSimulation() {
           aria-hidden={!showAnswer}
         >
           <div
-            className="rounded-xl border border-white/15 bg-navy/95 p-4 shadow-soft"
+            className="relative overflow-hidden rounded-xl border border-white/15 bg-navy/95 p-4 shadow-soft"
             style={{
               boxShadow:
                 "0 10px 40px rgba(244,117,88,0.18), 0 0 0 1px rgba(244,117,88,0.25)",
             }}
           >
+            {/* Top hairline accent — brand gradient */}
+            <span
+              className="absolute inset-x-0 top-0 h-[2px] bg-gradient-warm"
+              aria-hidden="true"
+            />
+
             <div className="mb-2 flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-coral" aria-hidden="true" />
+              {/* Mini Kindex mark — three capsules in brand gradient */}
+              <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="6" width="4" height="14" rx="2" fill="#FE5C36" />
+                <rect x="10" y="3" width="4" height="17" rx="2" fill="#F39420" />
+                <rect x="17" y="8" width="4" height="12" rx="2" fill="#F5C71A" />
+              </svg>
               <span className="text-[10px] font-medium uppercase tracking-[0.18em] text-white/55">
                 Kindex
               </span>
